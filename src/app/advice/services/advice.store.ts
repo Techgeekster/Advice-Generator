@@ -4,10 +4,11 @@ import { AdviceState, IAdviceGiphy, IAdviceSlip } from '../utils/advice.types';
 import { inject, InjectionToken } from '@angular/core';
 import { AdviceService } from './advice.service';
 import {
+  catchError,
+  EMPTY,
   finalize,
   forkJoin,
   map,
-  mergeMap,
   Observable,
   of,
   pipe,
@@ -41,6 +42,10 @@ export const AdviceStore = signalStore(
                 adviceList: slipsWithGiphy,
               });
             }),
+            catchError(() => {
+              console.error('Failed to get random advice');
+              return EMPTY;
+            }),
             finalize(() => patchState(store, { isLoading: false }))
           )
         )
@@ -64,6 +69,10 @@ export const AdviceStore = signalStore(
                 adviceList: updatedSlips,
               })
             ),
+            catchError(() => {
+              console.error(`Failed to get advice by search term: ${query}`);
+              return EMPTY;
+            }),
             finalize(() => patchState(store, { isLoading: false }))
           )
         )
