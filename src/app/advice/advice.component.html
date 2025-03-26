@@ -1,0 +1,32 @@
+<div class="advice-container">
+  @if (!isLoading() && adviceList().length === 0) {
+  <p>You are perfect, you don't need advice!</p>
+  }
+
+  <div class="advice-content">
+    <div class="advice-control">
+      <button class="random-advice" (click)="getAdvice()">Random Advice</button>
+
+      <form [formGroup]="searchAdviceForm" (ngSubmit)="searchAdvice()">
+        <input
+          class="search-input"
+          type="text"
+          formControlName="searchAdvice"
+          placeholder="Search Advice"
+        />
+        <span class="search-button" (click)="searchAdvice()"></span>
+      </form>
+    </div>
+
+    <div class="advice-list">
+      @for (adviceSlip of adviceList(); track adviceSlip.id) {
+      <advice-card [adviceSlip]="adviceSlip">
+        <span class="advice-gif">
+          <img [src]="adviceSlip.gifUrl" [alt]="adviceSlip.gifTitle" />
+        </span>
+        <div class="advice-text">{{ adviceSlip.advice }}</div>
+      </advice-card>
+      }
+    </div>
+  </div>
+</div>

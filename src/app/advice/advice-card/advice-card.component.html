@@ -1,0 +1,10 @@
+@if (isLoading()) {
+<div class="spinner"></div>
+} @else {
+<div class="advice-card">
+  <span class="advice-index">
+    {{ selectedAdviceIndex() | adviceIndex : adviceList().length }}
+  </span>
+  <ng-content></ng-content>
+</div>
+}
