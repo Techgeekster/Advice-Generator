@@ -43,7 +43,7 @@ export const AdviceStore = signalStore(
               });
             }),
             catchError(() => {
-              console.error('Failed to get random advices');
+              console.error('Failed to get random advice');
               return EMPTY;
             }),
             finalize(() => patchState(store, { isLoading: false }))
