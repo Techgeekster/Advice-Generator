@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AdviceComponent } from './advice/advice.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,8 @@ import { AdviceComponent } from './advice/advice.component';
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('Advice Generator');
+  }
+}
